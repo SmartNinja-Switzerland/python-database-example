@@ -1,13 +1,14 @@
 """
-Addressbook example using SQLAlchemy
+Addressbook example project showcasing SQLite and SQLAlchemy.
 """
 import sqlite3
 
 
 def initialize_database():
-    """"""
-    connection = sqlite3.connect('database.sqlite')
+    """Create a simple address database"""
+    connection = sqlite3.connect('addressbook.sqlite')
     cursor = connection.cursor()
+
     cursor.execute("""\
         CREATE TABLE person (
             id INTEGER,
@@ -16,3 +17,9 @@ def initialize_database():
             email VARCHAR(255)
         )
         """)
+
+    connection.commit()
+    connection.close()
+
+
+initialize_database()
