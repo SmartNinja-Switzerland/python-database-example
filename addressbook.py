@@ -35,7 +35,27 @@ def add_database_records():
             'heidi.ruegger@bluewin.ch'
         )
         """)
+    print(f"Heidi added.")
+
+    connection.commit()
+    connection.close()
+
+
+def read_database_records():
+    """Read the data we have stored in our database"""
+    connection = sqlite3.connect('addressbook.sqlite')
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT firstname, lastname, email FROM person")
+    all_rows = cursor.fetchall()
+    print(f"Found {len(all_rows)} records.")
+
+    for row in all_rows:
+        print(row)
+
+    connection.close()
 
 
 initialize_database()
 add_database_records()
+read_database_records()
