@@ -1,74 +1,52 @@
 """
 Addressbook example project showcasing SQLite and SQLAlchemy.
 """
-import sqlite3
+from sqla_wrapper import SQLAlchemy
 
-from pathlib import Path
+db = SQLAlchemy('sqlite:///:memory:')
 
-DATABASE_FILE = Path('addressbook.sqlite')
+
+class Person(db.Model):
+    """A person in our database"""
+    id = db.Column(db.Integer, primary_key=True)
+    firstname = db.Column(db.String)
+    lastname = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
 
 
 def initialize_database():
     """Create a simple address database"""
-    connection = sqlite3.connect(DATABASE_FILE.name)
-    cursor = connection.cursor()
-
-    cursor.execute("""\
-        CREATE TABLE person (
-            id INTEGER,
-            firstname VARCHAR(255),
-            lastname VARCHAR(255),
-            email VARCHAR(255)
-        )
-        """)
-
-    connection.commit()
-    connection.close()
+    db.create_all()
 
 
 def add_database_records():
     """Add some data to our database"""
-    connection = sqlite3.connect(DATABASE_FILE.name)
-    cursor = connection.cursor()
+    my_contacts = [
+        Person(lastname="Example", firstname="Adrian", email="adrian@example.com"),
+        Person(lastname="Example", firstname="Aman", email="aman@example.com"),
+        Person(lastname="Example", firstname="Carina", email="carina@example.com"),
+        Person(lastname="Example", firstname="Eduard", email="eduard@example.com"),
+        Person(lastname="Example", firstname="Nibu", email="nibu@example.com"),
+        Person(lastname="Example", firstname="Yann", email="yann@example.com"),
+        Person(lastname="Example", firstname="Yolanda", email="yoxito@example.com"),
+    ]
 
-    cursor.execute("""\
-        INSERT INTO person VALUES (
-            0,
-            'Heidi',
-            'Ruegger',
-            'heidi.ruegger@bluewin.ch'
-        ),
-        (
-            1,
-            'Reto',
-            'Ruegger',
-            'reto.ruegger@bluewin.ch'
-        )
-        """)
+    for contact in my_contacts:
+        db.add(contact)
 
-    connection.commit()
-    connection.close()
+    db.commit()
 
 
 def read_database_records():
     """Read the data we have stored in our database"""
-    connection = sqlite3.connect(DATABASE_FILE.name)
-    cursor = connection.cursor()
+    contacts = db.query(Person).all()
 
-    cursor.execute("SELECT firstname, lastname, email FROM person")
-
-    for row in cursor.fetchall():
-        firstname, lastname, email = row
-        print(f"Send email to: {firstname} {lastname} <{email}>")
-
-    connection.close()
+    for person in contacts:
+        print(f"Send email to: {person.firstname} {person.lastname} <{person.email}>")
 
 
 def main():
     """Our program starts here"""
-    if DATABASE_FILE.exists():
-        DATABASE_FILE.unlink()
-
     initialize_database()
     add_database_records()
     read_database_records()
