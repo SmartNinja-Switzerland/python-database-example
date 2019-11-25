@@ -3,10 +3,14 @@ Addressbook example project showcasing SQLite and SQLAlchemy.
 """
 import sqlite3
 
+from pathlib import Path
+
+DATABASE_FILE = Path('addressbook.sqlite')
+
 
 def initialize_database():
     """Create a simple address database"""
-    connection = sqlite3.connect('addressbook.sqlite')
+    connection = sqlite3.connect(DATABASE_FILE.name)
     cursor = connection.cursor()
 
     cursor.execute("""\
@@ -24,7 +28,7 @@ def initialize_database():
 
 def add_database_records():
     """Add some data to our database"""
-    connection = sqlite3.connect('addressbook.sqlite')
+    connection = sqlite3.connect(DATABASE_FILE.name)
     cursor = connection.cursor()
 
     cursor.execute("""\
@@ -41,7 +45,6 @@ def add_database_records():
             'reto.ruegger@bluewin.ch'
         )
         """)
-    print(f"Heidi added.")
 
     connection.commit()
     connection.close()
@@ -49,20 +52,27 @@ def add_database_records():
 
 def read_database_records():
     """Read the data we have stored in our database"""
-    connection = sqlite3.connect('addressbook.sqlite')
+    connection = sqlite3.connect(DATABASE_FILE.name)
     cursor = connection.cursor()
 
     cursor.execute("SELECT firstname, lastname, email FROM person")
-    all_rows = cursor.fetchall()
-    print(f"Found {len(all_rows)} records.")
 
-    for row in all_rows:
+    for row in cursor.fetchall():
         firstname, lastname, email = row
         print(f"Send email to: {firstname} {lastname} <{email}>")
 
     connection.close()
 
 
-initialize_database()
-add_database_records()
-read_database_records()
+def main():
+    """Our program starts here"""
+    if DATABASE_FILE.exists():
+        DATABASE_FILE.unlink()
+
+    initialize_database()
+    add_database_records()
+    read_database_records()
+
+
+if __name__ == '__main__':
+    main()
