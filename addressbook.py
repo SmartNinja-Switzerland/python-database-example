@@ -33,6 +33,12 @@ def add_database_records():
             'Heidi',
             'Ruegger',
             'heidi.ruegger@bluewin.ch'
+        ),
+        (
+            1,
+            'Reto',
+            'Ruegger',
+            'reto.ruegger@bluewin.ch'
         )
         """)
     print(f"Heidi added.")
@@ -51,7 +57,8 @@ def read_database_records():
     print(f"Found {len(all_rows)} records.")
 
     for row in all_rows:
-        print(row)
+        firstname, lastname, email = row
+        print(f"Send email to: {firstname} {lastname} <{email}>")
 
     connection.close()
 
