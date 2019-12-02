@@ -1,9 +1,12 @@
 """
 Addressbook example project showcasing SQLite and SQLAlchemy.
 """
+from pathlib import Path
 from sqla_wrapper import SQLAlchemy
 
-db = SQLAlchemy('sqlite:///:memory:')
+DATABASE_FILE = Path('addressbook.sqlite')
+
+db = SQLAlchemy(f"sqlite:///{DATABASE_FILE.name}")
 
 
 class Person(db.Model):
@@ -47,6 +50,9 @@ def read_database_records():
 
 def main():
     """Our program starts here"""
+    if DATABASE_FILE.exists():
+        DATABASE_FILE.unlink()
+
     initialize_database()
     add_database_records()
     read_database_records()

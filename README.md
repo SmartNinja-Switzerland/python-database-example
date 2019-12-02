@@ -8,6 +8,14 @@ module using actual [SQL](https://de.wikipedia.org/wiki/SQL) statements,
 comparing the approach with [SQLAlchemy](https://pypi.org/project/sqla-wrapper/)
 that uses just Python code. – Can you spot the difference?
 
+Getting Started
+---------------
+
+Install requirements:
+```console
+python3 -m pip install -r requirements.txt
+```
+
 Usage
 -----
 
