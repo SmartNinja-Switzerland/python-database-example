@@ -13,7 +13,10 @@
         <input name="firstname" value="{{ person.firstname }}" placeholder="Person's first name">
         <input name="email" value="{{ person.email }}" placeholder="email@address">
 
-        <p><button type="submit">Update</button></p>
+        <p>
+            <button type="submit">Update</button>
+            <a href="/person/{{ person.id }}">Cancel</a>
+        </p>
     </form>
 
 </body>
