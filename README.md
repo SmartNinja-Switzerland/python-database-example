@@ -8,6 +8,9 @@ module using actual [SQL](https://de.wikipedia.org/wiki/SQL) statements,
 comparing the approach with [SQLAlchemy](https://pypi.org/project/sqla-wrapper/)
 that uses just Python code. – Can you spot the difference?
 
+The [Flask](https://flask.palletsprojects.com/) web framework allows us to
+display our database content nicely in a Web browser.
+
 Getting Started
 ---------------
 
@@ -20,6 +23,6 @@ Usage
 -----
 
 Run the program from the terminal using:
-```python
-python3 addressbook.py
+```console
+python3 main.py
 ```

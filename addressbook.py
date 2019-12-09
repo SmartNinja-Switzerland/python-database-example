@@ -4,6 +4,7 @@ Addressbook example project showcasing SQLite and SQLAlchemy.
 from pathlib import Path
 from sqla_wrapper import SQLAlchemy
 
+
 DATABASE_FILE = Path('addressbook.sqlite')
 
 db = SQLAlchemy(f"sqlite:///{DATABASE_FILE.name}")
@@ -19,6 +20,9 @@ class Person(db.Model):
 
 def initialize_database():
     """Create a simple address database"""
+    if DATABASE_FILE.exists():
+        DATABASE_FILE.unlink()
+
     db.create_all()
 
 
@@ -43,20 +47,4 @@ def add_database_records():
 def read_database_records():
     """Read the data we have stored in our database"""
     contacts = db.query(Person).all()
-
-    for person in contacts:
-        print(f"Send email to: {person.firstname} {person.lastname} <{person.email}>")
-
-
-def main():
-    """Our program starts here"""
-    if DATABASE_FILE.exists():
-        DATABASE_FILE.unlink()
-
-    initialize_database()
-    add_database_records()
-    read_database_records()
-
-
-if __name__ == '__main__':
-    main()
+    return contacts

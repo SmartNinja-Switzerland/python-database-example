@@ -9,6 +9,7 @@ pylint = "*"
 pytest = "*"
 
 [packages]
+Flask = "*"
 sqla-wrapper = "*"
 
 [requires]

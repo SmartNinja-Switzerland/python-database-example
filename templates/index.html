@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Addressbook database example</title>
+</head>
+<body>
+
+    <h1>Addressbook database example</h1>
+
+    <ol>
+    {% for person in contacts %}
+        <li><a href="mailto:{{ person.email }}">{{ person.firstname }}</a></li>
+    {% endfor %}
+    </ol>
+
+</body>
+</html>
