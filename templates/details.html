@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details: {{ person.lastname }} {{ person.firstname }}</title>
+</head>
+<body>
+
+    <h1>{{ person.lastname }}, {{ person.firstname }}</h1>
+
+    Email: {{ person.email }}
+
+    <p>
+        <a href="/edit/{{ person.id }}">Edit {{ person.firstname }} {{ person.lastname }}</a>
+    </p>
+
+</body>
+</html>
