@@ -10,7 +10,7 @@
 
     <ol>
     {% for person in contacts %}
-        <li><a href="mailto:{{ person.email }}">{{ person.firstname }}</a></li>
+        <li><a href="/person/{{ person.id }}">{{ person.lastname }}, {{ person.firstname }}</a></li>
     {% endfor %}
     </ol>
 

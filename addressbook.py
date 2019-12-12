@@ -48,3 +48,9 @@ def read_database_records():
     """Read the data we have stored in our database"""
     contacts = db.query(Person).all()
     return contacts
+
+
+def get_database_item(person_id: int):
+    """Return a single data item stored in our database"""
+    person = db.query(Person).get(person_id)
+    return person
