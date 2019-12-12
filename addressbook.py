@@ -17,6 +17,10 @@ class Person(db.Model):
     lastname = db.Column(db.String)
     email = db.Column(db.String, unique=True)
 
+    def get_name(self):
+        """Yield the complete name of the person"""
+        return f"{self.firstname} {self.lastname}"
+
 
 def initialize_database():
     """Create a simple address database"""
@@ -54,3 +58,9 @@ def get_database_item(person_id: int):
     """Return a single data item stored in our database"""
     person = db.query(Person).get(person_id)
     return person
+
+
+def update_database_item(person):
+    """Write changes to our database"""
+    db.add(person)
+    db.commit()

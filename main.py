@@ -1,6 +1,8 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 
-from addressbook import initialize_database, add_database_records, read_database_records, get_database_item
+from addressbook import (
+    initialize_database, add_database_records, read_database_records, get_database_item, update_database_item
+)
 
 app = Flask(__name__)
 
@@ -18,10 +20,14 @@ def details(person_id):
 @app.route("/person/<int:person_id>", methods=["POST"])
 def update(person_id):
     person = get_database_item(person_id)
-    # TODO: update in the database
-    print(f"TODO: update {person.firstname} {person.lastname} in the database")
-    # Easy solution: show all contacts after updating
-    return index()
+
+    person.firstname = request.form.get('firstname')
+    person.lastname = request.form.get('lastname')
+    person.email = request.form.get('email')
+
+    update_database_item(person)
+
+    return details(person_id)
 
 
 @app.route("/edit/<int:person_id>")
