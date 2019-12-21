@@ -11,7 +11,8 @@
     Email: {{ person.email }}
 
     <p>
-        <a href="/edit/{{ person.id }}">Edit {{ person.firstname }} {{ person.lastname }}</a>
+        <a href="{{ url_for('edit', person_id=person.id) }}">Edit {{ person.firstname }} {{ person.lastname }}</a>
+        <a href="{{ url_for('index') }}">back to overview</a>
     </p>
 
 </body>
